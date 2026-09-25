@@ -1,0 +1,8 @@
+node_modules/
+dist/
+*.log
+original_site.html
+clean_body.html
+clean_subpage.html
+extracted_data.json
+*.py

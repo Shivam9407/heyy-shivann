@@ -1,0 +1,14 @@
+{
+  "name": "hiii-shivann",
+  "version": "1.0.0",
+  "description": "Responsive Romantic Website Recreation for Shivann",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite --port 3000 --host",
+    "build": "vite build",
+    "preview": "vite preview --port 3000 --host"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0"
+  }
+}

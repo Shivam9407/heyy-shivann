@@ -1,0 +1,223 @@
+[
+  {
+    "id": 1,
+    "filename": "flower_01.png",
+    "original_filename": "124060164730576752-removebg-preview.png",
+    "width": 375,
+    "height": 666,
+    "aspect_ratio": 0.563,
+    "bbox": [
+      29,
+      150,
+      342,
+      666
+    ],
+    "visible_width": 313,
+    "visible_height": 516,
+    "scale_modifier": 0.727
+  },
+  {
+    "id": 2,
+    "filename": "flower_02.png",
+    "original_filename": "14636767533682289-removebg-preview.png",
+    "width": 500,
+    "height": 500,
+    "aspect_ratio": 1.0,
+    "bbox": [
+      24,
+      33,
+      477,
+      465
+    ],
+    "visible_width": 453,
+    "visible_height": 432,
+    "scale_modifier": 1.104
+  },
+  {
+    "id": 3,
+    "filename": "flower_03.png",
+    "original_filename": "278238083223923951-removebg-preview.png",
+    "width": 375,
+    "height": 666,
+    "aspect_ratio": 0.563,
+    "bbox": [
+      82,
+      260,
+      285,
+      666
+    ],
+    "visible_width": 203,
+    "visible_height": 406,
+    "scale_modifier": 0.924
+  },
+  {
+    "id": 4,
+    "filename": "flower_04.png",
+    "original_filename": "990721618043554487-removebg-preview.png",
+    "width": 375,
+    "height": 666,
+    "aspect_ratio": 0.563,
+    "bbox": [
+      24,
+      11,
+      369,
+      666
+    ],
+    "visible_width": 345,
+    "visible_height": 655,
+    "scale_modifier": 0.573
+  },
+  {
+    "id": 5,
+    "filename": "flower_05.png",
+    "original_filename": "Flor_de_Cerejeira_PNG_Transparente_IA_Premium-removebg-preview.png",
+    "width": 500,
+    "height": 500,
+    "aspect_ratio": 1.0,
+    "bbox": [
+      39,
+      45,
+      467,
+      455
+    ],
+    "visible_width": 428,
+    "visible_height": 410,
+    "scale_modifier": 1.168
+  },
+  {
+    "id": 6,
+    "filename": "flower_06.png",
+    "original_filename": "Forget_me_not_flower_bouquet-removebg-preview.png",
+    "width": 500,
+    "height": 500,
+    "aspect_ratio": 1.0,
+    "bbox": [
+      27,
+      28,
+      464,
+      473
+    ],
+    "visible_width": 437,
+    "visible_height": 445,
+    "scale_modifier": 1.124
+  },
+  {
+    "id": 7,
+    "filename": "flower_07.png",
+    "original_filename": "Gemini_Generated_Image_5rgg6f5rgg6f5rgg-removebg-preview.png",
+    "width": 500,
+    "height": 500,
+    "aspect_ratio": 1.0,
+    "bbox": [
+      78,
+      82,
+      419,
+      418
+    ],
+    "visible_width": 341,
+    "visible_height": 336,
+    "scale_modifier": 1.466
+  },
+  {
+    "id": 8,
+    "filename": "flower_08.png",
+    "original_filename": "Gemini_Generated_Image_87xtlr87xtlr87xt-removebg-preview.png",
+    "width": 436,
+    "height": 572,
+    "aspect_ratio": 0.762,
+    "bbox": [
+      10,
+      17,
+      415,
+      562
+    ],
+    "visible_width": 405,
+    "visible_height": 545,
+    "scale_modifier": 0.8
+  },
+  {
+    "id": 9,
+    "filename": "flower_09.png",
+    "original_filename": "Gemini_Generated_Image_jqa4qjjqa4qjjqa4-removebg-preview.png",
+    "width": 500,
+    "height": 500,
+    "aspect_ratio": 1.0,
+    "bbox": [
+      59,
+      81,
+      438,
+      433
+    ],
+    "visible_width": 379,
+    "visible_height": 352,
+    "scale_modifier": 1.319
+  },
+  {
+    "id": 10,
+    "filename": "flower_10.png",
+    "original_filename": "Gemini_Generated_Image_neulvneulvneulvn-removebg-preview.png",
+    "width": 500,
+    "height": 500,
+    "aspect_ratio": 1.0,
+    "bbox": [
+      79,
+      84,
+      416,
+      401
+    ],
+    "visible_width": 337,
+    "visible_height": 317,
+    "scale_modifier": 1.484
+  },
+  {
+    "id": 11,
+    "filename": "flower_11.png",
+    "original_filename": "Gemini_Generated_Image_qholkwqholkwqhol-removebg-preview.png",
+    "width": 375,
+    "height": 666,
+    "aspect_ratio": 0.563,
+    "bbox": [
+      16,
+      107,
+      355,
+      572
+    ],
+    "visible_width": 339,
+    "visible_height": 465,
+    "scale_modifier": 0.806
+  },
+  {
+    "id": 12,
+    "filename": "flower_12.png",
+    "original_filename": "download__25_-removebg-preview.png",
+    "width": 447,
+    "height": 559,
+    "aspect_ratio": 0.8,
+    "bbox": [
+      7,
+      66,
+      424,
+      477
+    ],
+    "visible_width": 417,
+    "visible_height": 411,
+    "scale_modifier": 1.072
+  },
+  {
+    "id": 13,
+    "filename": "flower_13.png",
+    "original_filename": "\u3164__\u0361____\u3164\u05b0______\ud835\udcd3\ud835\udc52\ud835\udc4e\ud835\udc5f____\u05b4______\u20d4______\ud835\udcd3\ud835\udc56\ud835\udc4e\ud835\udc5f\ud835\udc66____\u08ea-removebg-preview.png",
+    "width": 500,
+    "height": 500,
+    "aspect_ratio": 1.0,
+    "bbox": [
+      46,
+      51,
+      456,
+      464
+    ],
+    "visible_width": 410,
+    "visible_height": 413,
+    "scale_modifier": 1.211
+  }
+]
