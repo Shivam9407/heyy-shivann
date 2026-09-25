@@ -1,204 +1,346 @@
 /**
  * Hiii Shivann — Flower Interaction System
- * Reproduces the magical cursor & touch flower trail using the exact 13 assets.
+ * Exactly reproduced from https://heyruu.vercel.app / github.com/Shivam9407/heyruu
  */
 
-(function () {
-  // 13 Flower Assets with bounding box metadata
-  const FLOWER_ASSETS = [
-    { src: '/assets/flowers/flower_01.png', width: 375, height: 666, baseScale: 0.9 },
-    { src: '/assets/flowers/flower_02.png', width: 500, height: 500, baseScale: 1.0 },
-    { src: '/assets/flowers/flower_03.png', width: 375, height: 666, baseScale: 0.95 },
-    { src: '/assets/flowers/flower_04.png', width: 375, height: 666, baseScale: 0.85 },
-    { src: '/assets/flowers/flower_05.png', width: 500, height: 500, baseScale: 1.05 },
-    { src: '/assets/flowers/flower_06.png', width: 500, height: 500, baseScale: 1.0 },
-    { src: '/assets/flowers/flower_07.png', width: 500, height: 500, baseScale: 1.1 },
-    { src: '/assets/flowers/flower_08.png', width: 436, height: 572, baseScale: 0.95 },
-    { src: '/assets/flowers/flower_09.png', width: 500, height: 500, baseScale: 1.05 },
-    { src: '/assets/flowers/flower_10.png', width: 500, height: 500, baseScale: 1.05 },
-    { src: '/assets/flowers/flower_11.png', width: 375, height: 666, baseScale: 0.9 },
-    { src: '/assets/flowers/flower_12.png', width: 447, height: 559, baseScale: 1.0 },
-    { src: '/assets/flowers/flower_13.png', width: 500, height: 500, baseScale: 1.05 }
-  ];
+const FLOWER_ASSETS = [
+  {
+    id: 'flower_0',
+    src: '/flowers/flower-01.png',
+    width: 436,
+    height: 572,
+    aspectRatio: 0.76,
+    centerX: 0.486,
+    centerY: 0.506,
+    name: 'Peach Rose'
+  },
+  {
+    id: 'flower_1',
+    src: '/flowers/flower-02.png',
+    width: 500,
+    height: 500,
+    aspectRatio: 1.0,
+    centerX: 0.490,
+    centerY: 0.500,
+    name: 'Forget-me-not Bouquet'
+  },
+  {
+    id: 'flower_2',
+    src: '/flowers/flower-03.png',
+    width: 375,
+    height: 666,
+    aspectRatio: 0.56,
+    centerX: 0.523,
+    centerY: 0.508,
+    name: 'Sunflower'
+  },
+  {
+    id: 'flower_3',
+    src: '/flowers/flower-04.png',
+    width: 375,
+    height: 666,
+    aspectRatio: 0.56,
+    centerX: 0.489,
+    centerY: 0.694,
+    name: 'Pink Daisy'
+  },
+  {
+    id: 'flower_4',
+    src: '/flowers/flower-05.png',
+    width: 500,
+    height: 500,
+    aspectRatio: 1.0,
+    centerX: 0.505,
+    centerY: 0.499,
+    name: 'Cherry Blossom'
+  },
+  {
+    id: 'flower_5',
+    src: '/flowers/flower-06.png',
+    width: 375,
+    height: 666,
+    aspectRatio: 0.56,
+    centerX: 0.493,
+    centerY: 0.613,
+    name: 'White Lily'
+  },
+  {
+    id: 'flower_6',
+    src: '/flowers/flower-07.png',
+    width: 375,
+    height: 666,
+    aspectRatio: 0.56,
+    centerX: 0.495,
+    centerY: 0.509,
+    name: 'Blue Violet'
+  },
+  {
+    id: 'flower_7',
+    src: '/flowers/flower-08.png',
+    width: 500,
+    height: 500,
+    aspectRatio: 1.0,
+    centerX: 0.496,
+    centerY: 0.514,
+    name: 'Purple Aster'
+  },
+  {
+    id: 'flower_8',
+    src: '/flowers/flower-09.png',
+    width: 500,
+    height: 500,
+    aspectRatio: 1.0,
+    centerX: 0.493,
+    centerY: 0.484,
+    name: 'Red Dahlia'
+  },
+  {
+    id: 'flower_9',
+    src: '/flowers/flower-10.png',
+    width: 500,
+    height: 500,
+    aspectRatio: 1.0,
+    centerX: 0.496,
+    centerY: 0.499,
+    name: 'Cyan Blossom'
+  },
+  {
+    id: 'flower_10',
+    src: '/flowers/flower-11.png',
+    width: 447,
+    height: 559,
+    aspectRatio: 0.80,
+    centerX: 0.481,
+    centerY: 0.485,
+    name: 'Yellow Marigold'
+  },
+  {
+    id: 'flower_11',
+    src: '/flowers/flower-12.png',
+    width: 500,
+    height: 500,
+    aspectRatio: 1.0,
+    centerX: 0.499,
+    centerY: 0.498,
+    name: 'Soft Carnation'
+  },
+  {
+    id: 'flower_12',
+    src: '/flowers/flower-13.png',
+    width: 500,
+    height: 500,
+    aspectRatio: 1.0,
+    centerX: 0.502,
+    centerY: 0.515,
+    name: 'Wine Rose'
+  }
+];
 
-  // Preload flower images
-  FLOWER_ASSETS.forEach(item => {
-    const img = new Image();
-    img.src = item.src;
-  });
+const FLOWER_CONFIG = {
+  desktopSpawnDistance: 60,
+  mobileSpawnDistance: 32,
+  maxActiveFlowers: 35,
+  desktopBaseWidth: 200,
+  desktopBaseHeight: 228,
+  mobileBaseWidth: 140,
+  mobileBaseHeight: 160,
+  visibleDuration: 0.75,
+  enterDuration: 0.45,
+  exitDuration: 0.5,
+  minScale: 0.85,
+  maxScale: 1.15,
+  minRotate: -24,
+  maxRotate: 24,
+  randomOffset: 12
+};
 
-  const CONFIG = {
-    minSpawnDistanceDesktop: 32, // px between flowers
-    minSpawnDistanceMobile: 26,  // px between flowers for touch trail
-    maxActiveFlowers: 60,        // performance safety limit
-    lifetimeMs: 1800,            // total visible life before full removal
-    baseSizeDesktop: 85,         // px
-    baseSizeMobile: 62           // px for phones
-  };
-
-  const isCoarse = window.matchMedia('(pointer: coarse)').matches || ('ontouchstart' in window);
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  class FlowerInteractionEngine {
-    constructor() {
-      this.container = null;
-      this.activeFlowers = [];
-      this.lastPos = null;
-      this.zIndexCounter = 100;
-      this.isInteracting = false;
-      this.init();
-    }
-
-    init() {
-      // Create dedicated overlay container
-      this.container = document.createElement('div');
-      this.container.className = 'flower-interaction-overlay';
-      this.container.setAttribute('aria-hidden', 'true');
-      document.body.appendChild(this.container);
-
-      // Event listeners
-      this.bindEvents();
-    }
-
-    bindEvents() {
-      // Desktop fine pointer
-      window.addEventListener('pointermove', (e) => {
-        if (e.pointerType === 'mouse') {
-          this.handlePointerMove(e.clientX, e.clientY, false);
-        }
-      }, { passive: true });
-
-      // Touch events with passive handling for smooth 60fps scrolling
-      window.addEventListener('touchstart', (e) => {
-        if (e.touches.length > 0) {
-          const t = e.touches[0];
-          this.lastPos = { x: t.clientX, y: t.clientY };
-          this.spawnFlower(t.clientX, t.clientY, true);
-        }
-      }, { passive: true });
-
-      window.addEventListener('touchmove', (e) => {
-        if (e.touches.length > 0) {
-          const t = e.touches[0];
-          this.handlePointerMove(t.clientX, t.clientY, true);
-        }
-      }, { passive: true });
-
-      window.addEventListener('touchend', () => {
-        this.lastPos = null;
-      }, { passive: true });
-    }
-
-    handlePointerMove(x, y, isTouch) {
-      if (!this.lastPos) {
-        this.lastPos = { x, y };
-        this.spawnFlower(x, y, isTouch);
-        return;
-      }
-
-      const dx = x - this.lastPos.x;
-      const dy = y - this.lastPos.y;
-      const dist = Math.hypot(dx, dy);
-      const threshold = isTouch ? CONFIG.minSpawnDistanceMobile : CONFIG.minSpawnDistanceDesktop;
-
-      if (dist >= threshold) {
-        // If moved quickly, interpolate to prevent gaps
-        if (dist > threshold * 2.5 && !isTouch) {
-          const steps = Math.min(Math.floor(dist / threshold), 3);
-          for (let i = 1; i <= steps; i++) {
-            const ix = this.lastPos.x + (dx * (i / (steps + 1)));
-            const iy = this.lastPos.y + (dy * (i / (steps + 1)));
-            this.spawnFlower(ix, iy, isTouch);
-          }
-        }
-
-        this.spawnFlower(x, y, isTouch);
-        this.lastPos = { x, y };
-      }
-    }
-
-    spawnFlower(x, y, isTouch) {
-      if (prefersReducedMotion && this.activeFlowers.length > 10) return;
-
-      // Maintain active flowers ceiling
-      if (this.activeFlowers.length >= CONFIG.maxActiveFlowers) {
-        const oldest = this.activeFlowers.shift();
-        if (oldest && oldest.element && oldest.element.parentNode) {
-          oldest.element.remove();
-        }
-      }
-
-      // Pick random flower
-      const flowerData = FLOWER_ASSETS[Math.floor(Math.random() * FLOWER_ASSETS.length)];
-      const flowerEl = document.createElement('div');
-      flowerEl.className = 'interactive-flower';
-
-      // Subtle random variations
-      const baseSize = isTouch ? CONFIG.baseSizeMobile : CONFIG.baseSizeDesktop;
-      const scaleVariation = 0.85 + Math.random() * 0.35;
-      const flowerSize = Math.round(baseSize * flowerData.baseScale * scaleVariation);
-
-      // Random rotation (-30 to +30 deg)
-      const initialRotation = -30 + Math.random() * 60;
-      const floatRotation = initialRotation + (-10 + Math.random() * 20);
-
-      // Jitter offset around cursor/finger
-      const jitterX = -10 + Math.random() * 20;
-      const jitterY = -10 + Math.random() * 20;
-
-      // Drift physics (gentle upward floating)
-      const driftY = prefersReducedMotion ? -5 : (-20 - Math.random() * 35);
-      const driftX = prefersReducedMotion ? 0 : (-12 + Math.random() * 24);
-
-      // Positioning: center flower on pointer
-      const posX = x + jitterX - flowerSize / 2;
-      const posY = y + jitterY - flowerSize / 2;
-
-      this.zIndexCounter++;
-      flowerEl.style.zIndex = this.zIndexCounter;
-      flowerEl.style.width = `${flowerSize}px`;
-      flowerEl.style.height = `${flowerSize}px`;
-      flowerEl.style.left = `${posX}px`;
-      flowerEl.style.top = `${posY}px`;
-
-      // Set CSS variables for fluid GPU animation
-      flowerEl.style.setProperty('--init-rot', `${initialRotation}deg`);
-      flowerEl.style.setProperty('--float-rot', `${floatRotation}deg`);
-      flowerEl.style.setProperty('--drift-x', `${driftX}px`);
-      flowerEl.style.setProperty('--drift-y', `${driftY}px`);
-      flowerEl.style.setProperty('--life-duration', `${CONFIG.lifetimeMs}ms`);
-
-      const img = document.createElement('img');
-      img.src = flowerData.src;
-      img.alt = '';
-      img.draggable = false;
-      img.loading = 'eager';
-      flowerEl.appendChild(img);
-
-      this.container.appendChild(flowerEl);
-
-      const flowerRecord = { element: flowerEl };
-      this.activeFlowers.push(flowerRecord);
-
-      // Cleanup when lifetime finishes
-      setTimeout(() => {
-        if (flowerEl.parentNode) {
-          flowerEl.remove();
-        }
-        const idx = this.activeFlowers.indexOf(flowerRecord);
-        if (idx !== -1) {
-          this.activeFlowers.splice(idx, 1);
-        }
-      }, CONFIG.lifetimeMs);
-    }
+class HeyRuuFlowerInteraction {
+  constructor(container) {
+    this.container = container;
+    this.overlay = null;
+    this.lastSpawn = { x: -9999, y: -9999 };
+    this.flowerIndex = 0;
+    this.activeFlowers = [];
+    this.isTouchDevice = false;
+    this.isReducedMotion = false;
+    this.init();
   }
 
-  // Initialize engine on DOM ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      window.flowerEngine = new FlowerInteractionEngine();
+  init() {
+    // Detect fine mouse vs touch
+    const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+    const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    this.isTouchDevice = hasTouch && !hasFinePointer;
+
+    // Update instruction label if present
+    const instructionLabel = document.getElementById('instruction-label');
+    if (instructionLabel) {
+      instructionLabel.textContent = this.isTouchDevice ? 'TOUCH & DRAG' : 'HOVER YOUR CURSOR';
+    }
+
+    // Preload images
+    FLOWER_ASSETS.forEach(asset => {
+      const img = new Image();
+      img.src = asset.src;
     });
-  } else {
-    window.flowerEngine = new FlowerInteractionEngine();
+
+    // Create overlay
+    this.overlay = document.createElement('div');
+    this.overlay.className = 'flower-interaction-overlay';
+    this.overlay.setAttribute('aria-hidden', 'true');
+    this.container.appendChild(this.overlay);
+
+    this.bindEvents();
   }
-})();
+
+  bindEvents() {
+    const onMouseMove = (e) => {
+      this.handlePointerMovement(e.clientX, e.clientY, false);
+    };
+
+    const onTouchStart = (e) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        this.handlePointerMovement(touch.clientX, touch.clientY, true);
+      }
+    };
+
+    const onTouchMove = (e) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        this.handlePointerMovement(touch.clientX, touch.clientY, true);
+      }
+    };
+
+    const onTouchEnd = () => {
+      this.lastSpawn = { x: -9999, y: -9999 };
+    };
+
+    this.container.addEventListener('mousemove', onMouseMove, { passive: true });
+    this.container.addEventListener('touchstart', onTouchStart, { passive: true });
+    this.container.addEventListener('touchmove', onTouchMove, { passive: true });
+    this.container.addEventListener('touchend', onTouchEnd, { passive: true });
+    this.container.addEventListener('touchcancel', onTouchEnd, { passive: true });
+  }
+
+  handlePointerMovement(clientX, clientY, isDown = false) {
+    const rect = this.container.getBoundingClientRect();
+    const relX = clientX - rect.left;
+    const relY = clientY - rect.top;
+
+    // Check bounds
+    if (relX < 0 || relY < 0 || relX > rect.width || relY > rect.height) {
+      return;
+    }
+
+    const dist = Math.hypot(
+      relX - this.lastSpawn.x,
+      relY - this.lastSpawn.y
+    );
+
+    const threshold = this.isTouchDevice
+      ? FLOWER_CONFIG.mobileSpawnDistance
+      : FLOWER_CONFIG.desktopSpawnDistance;
+
+    if (dist >= threshold || (isDown && dist > 15)) {
+      this.lastSpawn = { x: relX, y: relY };
+      this.spawnFlower(relX, relY);
+    }
+  }
+
+  spawnFlower(x, y) {
+    const isMobile = window.innerWidth <= 768;
+    const baseW = isMobile ? FLOWER_CONFIG.mobileBaseWidth : FLOWER_CONFIG.desktopBaseWidth;
+    const baseH = isMobile ? FLOWER_CONFIG.mobileBaseHeight : FLOWER_CONFIG.desktopBaseHeight;
+
+    const asset = FLOWER_ASSETS[this.flowerIndex % FLOWER_ASSETS.length];
+    this.flowerIndex += 1;
+
+    const scale = FLOWER_CONFIG.minScale + Math.random() * (FLOWER_CONFIG.maxScale - FLOWER_CONFIG.minScale);
+    const rotation = FLOWER_CONFIG.minRotate + Math.random() * (FLOWER_CONFIG.maxRotate - FLOWER_CONFIG.minRotate);
+    const jitterX = (Math.random() - 0.5) * FLOWER_CONFIG.randomOffset;
+    const jitterY = (Math.random() - 0.5) * FLOWER_CONFIG.randomOffset;
+    const floatOffset = -12 - Math.random() * 8;
+
+    const posX = x + jitterX;
+    const posY = y + jitterY;
+
+    const left = posX - baseW * asset.centerX;
+    const top = posY - baseH * asset.centerY;
+
+    // Create flower DOM element
+    const el = document.createElement('div');
+    el.className = 'flower-instance flower-state-entering';
+    if (this.isReducedMotion) el.classList.add('reduced-motion');
+    el.style.width = `${baseW}px`;
+    el.style.height = `${baseH}px`;
+    el.style.transform = `translate3d(${left}px, ${top}px, 0) rotate(${rotation - 12}deg) scale(${scale * 0.3})`;
+    el.style.opacity = '0';
+    el.setAttribute('aria-hidden', 'true');
+
+    const img = document.createElement('img');
+    img.src = asset.src;
+    img.alt = '';
+    img.draggable = false;
+    img.className = 'flower-image';
+    img.loading = 'eager';
+    el.appendChild(img);
+
+    this.overlay.appendChild(el);
+
+    // Limit active pool
+    this.activeFlowers.push(el);
+    if (this.activeFlowers.length > FLOWER_CONFIG.maxActiveFlowers) {
+      const oldest = this.activeFlowers.shift();
+      if (oldest && oldest.parentNode) oldest.remove();
+    }
+
+    // Step 1: Active
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        el.className = 'flower-instance flower-state-active';
+        el.style.transform = `translate3d(${left}px, ${top}px, 0) rotate(${rotation}deg) scale(${scale})`;
+        el.style.opacity = '1';
+      });
+    });
+
+    // Step 2: Floating
+    const enterTimer = setTimeout(() => {
+      const driftY = this.isReducedMotion ? 0 : floatOffset;
+      el.className = 'flower-instance flower-state-floating';
+      el.style.transform = `translate3d(${left}px, ${top + driftY}px, 0) rotate(${rotation + 2}deg) scale(${scale * 0.98})`;
+      el.style.opacity = '0.95';
+    }, FLOWER_CONFIG.enterDuration * 1000);
+
+    // Step 3: Exiting
+    const exitTimer = setTimeout(() => {
+      const exitY = this.isReducedMotion ? 0 : floatOffset - 16;
+      el.className = 'flower-instance flower-state-exiting';
+      el.style.transform = `translate3d(${left}px, ${top + exitY}px, 0) rotate(${rotation + 6}deg) scale(${scale * 0.35})`;
+      el.style.opacity = '0';
+    }, (FLOWER_CONFIG.enterDuration + FLOWER_CONFIG.visibleDuration) * 1000);
+
+    // Step 4: Removal
+    const removeTimer = setTimeout(() => {
+      if (el.parentNode) el.remove();
+      const idx = this.activeFlowers.indexOf(el);
+      if (idx !== -1) this.activeFlowers.splice(idx, 1);
+    }, (FLOWER_CONFIG.enterDuration + FLOWER_CONFIG.visibleDuration + FLOWER_CONFIG.exitDuration) * 1000);
+  }
+}
+
+// Auto-initialize on hero section
+function initFlowerInteractions() {
+  const heroSection = document.getElementById('hero');
+  if (heroSection) {
+    new HeyRuuFlowerInteraction(heroSection);
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initFlowerInteractions);
+} else {
+  initFlowerInteractions();
+}
+
+export default HeyRuuFlowerInteraction;
